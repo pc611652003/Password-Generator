@@ -15,12 +15,17 @@ var randomCharacter = function(characterList) {
 //  -> number including and between 8 and 128
 var askLengthOfPassword = function() {
   // Ask for the length of password.
+  var inputLength = window.prompt("Please input the length you want for your password. Enter a number between 8 and 128.");
 
   // Check if the answer is valid, between 8 and 128
   //  -> return the length if valid
   //  -> ask again if invalid
-
-  return 8; // default return before inserting codes.
+  if (Number.isInteger(Number(inputLength)) && inputLength >= 8 && inputLength <= 128) {
+    return parseInt(Number(inputLength));
+  } else {
+    window.alert("The input value has to be an integer between 8 and 128.");
+    return askLengthOfPassword();
+  }
 }
 
 // Return a string representing what type of characters should be included
