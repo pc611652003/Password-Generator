@@ -67,10 +67,15 @@ var askIncludedCharacter = function() {
 //      the return string will be looking like "13411313"
 var generatePseudoPassword = function(pseudoLength, includedType) {
   // Create an empty string for pseudo password
+  var pseudoPasswordString = "";
+
   // For the length of password (pseudoLength) the user entered, 
   // add one of the random characters from the includedType to pseudo password.
+  for (var i = 0; i < pseudoLength; i++) {
+    pseudoPasswordString = pseudoPasswordString + includedType[Math.floor(Math.random() * includedType.length)];
+  }
 
-  return "12341234"; // default return before inserting codes.
+  return pseudoPasswordString; // default return before inserting codes.
 }
 
 // Return the update pseudo password string to make sure all desire type of characters are included.
