@@ -1,9 +1,9 @@
 // Assignment code here
 
 // Create list of characters we will use to generate password
-const numberList = "0123456789";
 const lowerCaseList = "abcdefghijklmnopqrstuvwxyz";
 const upperCaseList = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const numberList = "0123456789";
 const specialList = " !" + '"' + "#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
 
 // Return a random character from the characterList passed in
@@ -29,24 +29,42 @@ var askLengthOfPassword = function() {
 }
 
 // Return a string representing what type of characters should be included
-//  -> if number is included, "1" is included in the return string
-//  -> if lower case letter is included, "2" is included in the return string
-//  -> if upper case letter is included, "3" is included in the return string
+//  -> if lower case letter is included, "1" is included in the return string
+//  -> if upper case letter is included, "2" is included in the return string
+//  -> if number is included, "3" is included in the return string
 //  -> if special character is included, "4" is included in the return string
-//    -> eg. "124" means password included number, lower case letter and special character are included.
+//    -> eg. "134" means password included lower case letter, number and special character are included.
 var askIncludedCharacter = function() {
-  // Ask user if the type of characters should be include, for all four type.
+  var includedType = "";
 
+  // Ask user if the type of characters should be include, for all four type.
+  if (window.confirm("Do you want to include lowercase characters in your password?")) {
+    includedType = includedType + "1";
+  }
+  if (window.confirm("Do you want to include uppercase characters in your password?")) {
+    includedType = includedType + "2";
+  }
+  if (window.confirm("Do you want to include numeric characters in your password?")) {
+    includedType = includedType + "3";
+  }
+  if (window.confirm("Do you want to include special characters in your password?")) {
+    includedType = includedType + "4";
+  }
+  
   // Check if any type of characters are include.
   //  -> return the representing string if at least one type of characters included.
   //  -> ask again if none are included.
-
-  return "1234"; // default return before inserting codes.
+  if (includedType != "") {
+    return includedType;
+  } else {
+    window.alert("You need to include at least 1 type of characters.");
+    return askIncludedCharacter();
+  }
 }
 
 // Return a string of a pseudo Password, which each number on each spot means what type of character should be there.
-//  -> eg. a 8 characters length password including number, lower case letter and special character ("124")
-//      the return string will be looking like "12411212"
+//  -> eg. a 8 characters length password including lower case letter, number and special character ("134")
+//      the return string will be looking like "13411313"
 var generatePseudoPassword = function(pseudoLength, includedType) {
   // Create an empty string for pseudo password
   // For the length of password (pseudoLength) the user entered, 
