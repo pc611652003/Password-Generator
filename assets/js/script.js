@@ -75,7 +75,7 @@ var generatePseudoPassword = function(pseudoLength, includedType) {
     pseudoPasswordString = pseudoPasswordString + includedType[Math.floor(Math.random() * includedType.length)];
   }
 
-  return pseudoPasswordString; // default return before inserting codes.
+  return pseudoPasswordString;
 }
 
 // Return the update pseudo password string to make sure all desire type of characters are included.
@@ -112,9 +112,29 @@ var includingDesireType = function(pseudoString, includedType) {
 // Return the real password according to the pseudo password string
 var changingPseudoToReal = function(pseudoString) {
   // Create empty password
-  // Loop through the pseudo string, and add a random character of the indicated types into the password string.
+  var realPassword = "";
 
-  return "This is a dummy password"; // default return before inserting codes.
+  // Loop through the pseudo string, and add a random character of the indicated types into the password string.
+  for (var i = 0; i < pseudoString.length; i++) {
+    switch (pseudoString[i]) {
+      case "1": 
+        realPassword = realPassword + randomCharacter(lowerCaseList);
+        break;
+      case "2":
+        realPassword = realPassword + randomCharacter(upperCaseList);
+        break;
+      case "3":
+        realPassword = realPassword + randomCharacter(numberList);
+        break;
+      case "4":
+        realPassword = realPassword + randomCharacter(specialList);
+        break;
+      default:
+        break;
+    }
+  }
+
+  return realPassword;
 }
 
 var generatePassword = function() {
