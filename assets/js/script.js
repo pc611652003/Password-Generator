@@ -81,12 +81,32 @@ var generatePseudoPassword = function(pseudoLength, includedType) {
 // Return the update pseudo password string to make sure all desire type of characters are included.
 //  -> eg. make sure a "12121212" for type "124" become "41221212"
 var includingDesireType = function(pseudoString, includedType) {
-  // Generate a randomly sorted string of includedType
-  //  -> Change "124" into "241" or "412"
-  // Change the first couple characters of pseudoString according to the sorted string of includedType
-  //  -> Change "12411212" into "24111212" or "41211212"
+  // Divide the pseudo password string into parts according to the number of types of characters included.
+  //  -> For includeType "134", divide the pseudo password string into 3 parts + Remaining
+  //  -> "13431414" will become "13" + "43" + "14" + "14"(Remaining) 
+  var partLength = Math.floor(pseudoString.length / includedType.length);
+  
+  // For each desire type of characters, generate a random index.
+  var randomIndex = "";
+  for (var i = 0; i < includedType.length; i++) {
+    randomIndex = randomIndex + ((partLength * i) + (Math.floor(Math.random() * partLength)));
+  }
+  
+  // Generate a updated pseudo string which guarantee to include all desired types of character
+  //  -> if the index is equal to a number in randomIndex, put in the corresponding type of character
+  //  -> else copy the corresponding character from pseudo string.
+  var updatedPseudo = "";
+  var currentIndex = 0;
+  for (var j = 0; j < pseudoString.length; j++) {
+    if (randomIndex[currentIndex] == j) {
+      updatedPseudo = updatedPseudo + includedType[currentIndex];
+      currentIndex++;
+    } else {
+      updatedPseudo = updatedPseudo + pseudoString[j];
+    }
+  }
 
-  return "12344321"; // default return before inserting codes.
+  return updatedPseudo;
 }
 
 // Return the real password according to the pseudo password string
