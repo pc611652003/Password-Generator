@@ -39,16 +39,16 @@ var askIncludedCharacter = function() {
 
   // Ask user if the type of characters should be include, for all four type.
   if (window.confirm("Do you want to include lowercase characters in your password?")) {
-    includedType = includedType + "1";
+    includedType += "1";
   }
   if (window.confirm("Do you want to include uppercase characters in your password?")) {
-    includedType = includedType + "2";
+    includedType += "2";
   }
   if (window.confirm("Do you want to include numeric characters in your password?")) {
-    includedType = includedType + "3";
+    includedType += "3";
   }
   if (window.confirm("Do you want to include special characters in your password?")) {
-    includedType = includedType + "4";
+    includedType += "4";
   }
   
   // Check if any type of characters are include.
@@ -72,7 +72,7 @@ var generatePseudoPassword = function(pseudoLength, includedType) {
   // For the length of password (pseudoLength) the user entered, 
   // add one of the random characters from the includedType to pseudo password.
   for (var i = 0; i < pseudoLength; i++) {
-    pseudoPasswordString = pseudoPasswordString + includedType[Math.floor(Math.random() * includedType.length)];
+    pseudoPasswordString += includedType[Math.floor(Math.random() * includedType.length)];
   }
 
   return pseudoPasswordString;
@@ -89,7 +89,7 @@ var includingDesireType = function(pseudoString, includedType) {
   // For each desire type of characters, generate a random index.
   var randomIndex = "";
   for (var i = 0; i < includedType.length; i++) {
-    randomIndex = randomIndex + ((partLength * i) + (Math.floor(Math.random() * partLength)));
+    randomIndex += ((partLength * i) + (Math.floor(Math.random() * partLength)));
   }
   
   // Generate a updated pseudo string which guarantee to include all desired types of character
@@ -99,10 +99,10 @@ var includingDesireType = function(pseudoString, includedType) {
   var currentIndex = 0;
   for (var j = 0; j < pseudoString.length; j++) {
     if (randomIndex[currentIndex] == j) {
-      updatedPseudo = updatedPseudo + includedType[currentIndex];
+      updatedPseudo += includedType[currentIndex];
       currentIndex++;
     } else {
-      updatedPseudo = updatedPseudo + pseudoString[j];
+      updatedPseudo += pseudoString[j];
     }
   }
 
@@ -118,16 +118,16 @@ var changingPseudoToReal = function(pseudoString) {
   for (var i = 0; i < pseudoString.length; i++) {
     switch (pseudoString[i]) {
       case "1": 
-        realPassword = realPassword + randomCharacter(lowerCaseList);
+        realPassword += randomCharacter(lowerCaseList);
         break;
       case "2":
-        realPassword = realPassword + randomCharacter(upperCaseList);
+        realPassword += randomCharacter(upperCaseList);
         break;
       case "3":
-        realPassword = realPassword + randomCharacter(numberList);
+        realPassword += randomCharacter(numberList);
         break;
       case "4":
-        realPassword = realPassword + randomCharacter(specialList);
+        realPassword += randomCharacter(specialList);
         break;
       default:
         break;
