@@ -37,29 +37,71 @@ var askLengthOfPassword = function() {
 var askIncludedCharacter = function() {
   var includedType = "";
 
-  // Ask user if the type of characters should be include, for all four type.
-  if (window.confirm("Do you want to include lowercase characters in your password?")) {
-    includedType += "1";
-  }
-  if (window.confirm("Do you want to include uppercase characters in your password?")) {
-    includedType += "2";
-  }
-  if (window.confirm("Do you want to include numeric characters in your password?")) {
-    includedType += "3";
-  }
-  if (window.confirm("Do you want to include special characters in your password?")) {
-    includedType += "4";
+  // Repeat to ask if none of the 4 types are included.
+  while (includedType === "") {
+    // Ask user if the type of characters should be include, for all four type.
+    if (window.confirm("Do you want to include lowercase characters in your password?")) {
+      includedType += "1";  
+    }
+    if (window.confirm("Do you want to include uppercase characters in your password?")) {
+      includedType += "2";
+    }
+    if (window.confirm("Do you want to include numeric characters in your password?")) {
+      includedType += "3";
+    }
+    if (window.confirm("Do you want to include special characters in your password?")) {
+      includedType += "4";
+    }
+    
+    // Check if any type of characters are include.
+    //  -> if none is included, display alert message
+    //  -> else ask user to confirm the choices
+    //    -> if confirm, alert user the password is generating.
+    //    -> if not, ask what types to include again.
+    if (includedType == "") {
+      window.alert("You need to include at least 1 type of characters.");
+    } else {
+      // Generating the message for confirmation.
+      var confirmMessage = "You decide to include ";
+
+      for (var i = 0; i < includedType.length; i++) {
+        if (i != 0) {
+          if (i == (includedType.length - 1)) {
+            confirmMessage += " and ";
+          } else {
+            confirmMessage += ", "
+          }
+        }
+        switch (includedType[i]) {
+          case "1":
+            confirmMessage += "lowercase";
+            break;
+          case "2":
+            confirmMessage += "uppercase";
+            break;
+          case "3":
+            confirmMessage += "numeric";
+            break;
+          case "4":
+            confirmMessage += "special";
+            break;
+          default:
+            break;
+        }
+      }
+
+      confirmMessage += " characters in your password."
+      if (window.confirm(confirmMessage)) {
+        window.alert("Your password is now being generated.");
+      } else {
+        window.alert("You will re-decide which types of characters to include.");
+        // Clear out includedType, so while loop will continue.
+        includedType = "";
+      }
+    }
   }
   
-  // Check if any type of characters are include.
-  //  -> return the representing string if at least one type of characters included.
-  //  -> ask again if none are included.
-  if (includedType != "") {
-    return includedType;
-  } else {
-    window.alert("You need to include at least 1 type of characters.");
-    return askIncludedCharacter();
-  }
+  return includedType;
 }
 
 // Return a string of a pseudo Password, which each number on each spot means what type of character should be there.
