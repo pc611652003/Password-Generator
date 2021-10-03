@@ -54,7 +54,7 @@ URL of the deployed application : https://pc611652003.github.io/Password-Generat
 URL of the GitHub repository : https://github.com/pc611652003/Password-Generator
 
 The Application will start at this page.
-![Starting Page](screenshots/Start.png "Starting page of the application")
+![Starting Page](./screenshots/Start.png "Starting page of the application")
 
 After user click on the "Generate Password" button, user will be asked for the length of password.
 ![Length Prompt](screenshots/lengthOfPW.png "Asking for length of password")
