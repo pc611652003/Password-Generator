@@ -14,18 +14,33 @@ var randomCharacter = function(characterList) {
 // Return the length of password
 //  -> number including and between 8 and 128
 var askLengthOfPassword = function() {
-  // Ask for the length of password.
-  var inputLength = window.prompt("Please input the length you want for your password. Enter a number between 8 and 128.");
-
-  // Check if the answer is valid, between 8 and 128
-  //  -> return the length if valid
-  //  -> ask again if invalid
-  if (Number.isInteger(Number(inputLength)) && inputLength >= 8 && inputLength <= 128) {
-    return parseInt(Number(inputLength));
-  } else {
-    window.alert("The input value has to be an integer between 8 and 128.");
-    return askLengthOfPassword();
+  var inputLength = "";
+  var answerValid = false;
+  
+  // Ask again if the answer is not valid
+  while (!answerValid) {
+    // Ask for the length of password.
+    inputLength = window.prompt("Please input the length you want for your password. Enter a number between 8 and 128.");
+    
+    // Check if the answer is valid, between 8 and 128
+    //  -> if valid, ask user to confirm the length
+    //    -> if confirmed, return the length
+    //    -> else, set the answer as invalid to continue the loop
+    //  -> ask again if invalid
+    answerValid = (Number.isInteger(Number(inputLength)) && inputLength >= 8 && inputLength <= 128);
+    if (answerValid) {
+      if (window.confirm("You want your password to be " + inputLength + "-characters long.")) {
+        window.alert("You will process to choose which types of characters to be included in your password.");
+        return parseInt(Number(inputLength));
+      } else {
+        window.alert("You can enter the length of your password again.");
+        answerValid = false;
+      }
+    } else {
+      window.alert("The input value has to be an integer between 8 and 128.");
+    }
   }
+ 
 }
 
 // Return a string representing what type of characters should be included
@@ -56,14 +71,13 @@ var askIncludedCharacter = function() {
     // Check if any type of characters are include.
     //  -> if none is included, display alert message
     //  -> else ask user to confirm the choices
-    //    -> if confirm, alert user the password is generating.
+    //    -> if confirm, alert user the password is generating, return includedType
     //    -> if not, ask what types to include again.
     if (includedType == "") {
       window.alert("You need to include at least 1 type of characters.");
     } else {
       // Generating the message for confirmation.
       var confirmMessage = "You decide to include ";
-
       for (var i = 0; i < includedType.length; i++) {
         if (i != 0) {
           if (i == (includedType.length - 1)) {
@@ -89,10 +103,12 @@ var askIncludedCharacter = function() {
             break;
         }
       }
+      confirmMessage += " characters in your password.";
 
-      confirmMessage += " characters in your password."
+      // Ask user to confirm the choices
       if (window.confirm(confirmMessage)) {
         window.alert("Your password is now being generated.");
+        return includedType;
       } else {
         window.alert("You will re-decide which types of characters to include.");
         // Clear out includedType, so while loop will continue.
@@ -101,7 +117,6 @@ var askIncludedCharacter = function() {
     }
   }
   
-  return includedType;
 }
 
 // Return a string of a pseudo Password, which each number on each spot means what type of character should be there.
