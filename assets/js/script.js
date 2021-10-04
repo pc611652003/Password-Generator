@@ -144,9 +144,9 @@ var includingDesireType = function(pseudoString, includedType) {
   var partLength = Math.floor(pseudoString.length / includedType.length);
   
   // For each desire type of characters, generate a random index.
-  var randomIndex = "";
+  var randomIndex = [];
   for (var i = 0; i < includedType.length; i++) {
-    randomIndex += ((partLength * i) + (Math.floor(Math.random() * partLength)));
+    randomIndex.push((partLength * i) + (Math.floor(Math.random() * partLength)));
   }
   
   // Generate a updated pseudo string which guarantee to include all desired types of character
